@@ -29,6 +29,6 @@ ENV TRIDENT_SERVER 127.0.0.1:$PORT
 
 COPY --from=builder /dist/trident_orchestrator /
 COPY --from=builder /dist/tridentctl /bin/
-ADD chwrap.tar /
+# ADD chwrap.tar /
 
 ENTRYPOINT ["/bin/tridentctl"]
