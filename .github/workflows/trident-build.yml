@@ -27,7 +27,9 @@ jobs:
       # from make file
       # - name: create chwrap.tar file
       #   run: chwrap/make-tarball.sh chwrap chwrap.tar
-
+      - name: check out what´s there
+        run: ls
+        
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v1
