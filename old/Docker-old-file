@@ -22,3 +22,4 @@ ADD chwrap.tar /
 
 ENTRYPOINT ["/bin/$CLI_BIN"]
 CMD ["version"]
+
