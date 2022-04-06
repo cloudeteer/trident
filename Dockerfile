@@ -16,7 +16,8 @@ RUN go mod download
 
 COPY . .
 
-RUN go get -ldflags="-w -s -X github.com/cloudeteer/trident/config.BuildHash=test -X github.com/cloudeteer/trident/config.BuildType=custom -X github.com/netapp/cloudeteer/config.BuildTypeRev=0 -X github.com/cloudeteer/trident/config.BuildTime=00:00 -X github.com/cloudeteer/trident/config.BuildImage=latest -X github.com/cloudeteer/trident/operator/config.BuildImage=latest" .
+RUN go build .
+# RUN go get -ldflags="-w -s -X github.com/cloudeteer/trident/config.BuildHash=test -X github.com/cloudeteer/trident/config.BuildType=custom -X github.com/netapp/cloudeteer/config.BuildTypeRev=0 -X github.com/cloudeteer/trident/config.BuildTime=00:00 -X github.com/cloudeteer/trident/config.BuildImage=latest -X github.com/cloudeteer/trident/operator/config.BuildImage=latest" .
 
 FROM alpine:3.12
 
