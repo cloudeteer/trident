@@ -4,6 +4,7 @@ ENV GO111MODULE=on \
       CGO_ENABLED=0 \
       GOOS=${TARGETOS} \
       GOARCH=${TARGETARCH}
+COPY . .
 
 RUN ls
 
