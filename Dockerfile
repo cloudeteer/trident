@@ -18,7 +18,6 @@ RUN go mod download
 
 COPY . .
 
-RUN ls
 
 # RUN go build -ldflags "-s -w" -o trident_orchestrator
 
@@ -28,6 +27,9 @@ RUN go build .
 
 # RUN chwrap/make-tarball.sh /chwrap chwrap.tar
 
+RUN ls app/
+
+RUN ls dist/
 
 FROM alpine:3.12
 
