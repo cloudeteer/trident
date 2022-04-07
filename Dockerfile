@@ -27,7 +27,7 @@ RUN go build .
 
 # RUN chwrap/make-tarball.sh /chwrap chwrap.tar
 
-RUN ls app/
+# RUN ls app/
 
 RUN ls dist/
 
