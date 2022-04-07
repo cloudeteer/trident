@@ -3,10 +3,10 @@ FROM golang:1.17 AS builder
 ENV GO111MODULE=on \
       CGO_ENABLED=0 \
       GOOS=${TARGETOS} \
-      GOARCH=${TARGETARCH} 
-# GOGC="" \
-# GOPROXY=https://proxy.golang.org\
-# XDG_CACHE_HOME=/go/cache
+      GOARCH=${TARGETARCH} \
+      GOGC="" \
+      GOPROXY=https://proxy.golang.org\
+      XDG_CACHE_HOME=/go/cache
 
 COPY . .
 
