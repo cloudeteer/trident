@@ -1,23 +1,20 @@
-FROM golang:alpine3.12 AS builder
+FROM golang:1.17 AS builder
 
 ENV GO111MODULE=on \
       CGO_ENABLED=0 \
       GOOS=${TARGETOS} \
-      GOARCH=${TARGETARCH} \
-      GOBIN=/dist
-
-WORKDIR /app
+      GOARCH=${TARGETARCH}
 
 RUN ls
-COPY go.mod .
-COPY go.sum .
 
-RUN go mod download
+RUN go build -ldflags "-s -w" -o trident_orchestrator#
 
-COPY . .
+RUN go build -ldflags "-s -w" -o tridentctl
 
 RUN go build .
-# RUN go get -ldflags="-w -s -X github.com/cloudeteer/trident/config.BuildHash=test -X github.com/cloudeteer/trident/config.BuildType=custom -X github.com/netapp/cloudeteer/config.BuildTypeRev=0 -X github.com/cloudeteer/trident/config.BuildTime=00:00 -X github.com/cloudeteer/trident/config.BuildImage=latest -X github.com/cloudeteer/trident/operator/config.BuildImage=latest" .
+
+RUN chwrap/make-tarball.sh /chwrap chwrap.tar
+
 
 FROM alpine:3.12
 
@@ -29,8 +26,9 @@ ENV K8S $K8S
 ENV TRIDENT_IP localhost
 ENV TRIDENT_SERVER 127.0.0.1:$PORT
 
-COPY --from=builder /dist/trident_orchestrator /
-COPY --from=builder /dist/tridentctl /bin/
-# ADD chwrap.tar /
+COPY --from=builder /trident_orchestrator /
+COPY --from=builder /tridentctl /bin/tridentctl
+COPY --from=builder /trident /
+COPY --from=builder /chwrap.tar /
 
 ENTRYPOINT ["/bin/tridentctl"]

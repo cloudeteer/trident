@@ -24,9 +24,6 @@ jobs:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
 
-      # from make file
-      # - name: create chwrap.tar file
-      #   run: chwrap/make-tarball.sh chwrap chwrap.tar
       - name: check out what´s there
         run: ls
         
@@ -40,8 +37,6 @@ jobs:
       - name: Available platforms after QEMU
         run: echo ${{ steps.qemu.outputs.platform }}
 
-      # Extract metadata (tags, labels) for Docker
-      # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v3

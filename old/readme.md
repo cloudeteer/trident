@@ -1,0 +1,1 @@
+docker run -it --name="trident-build" --net=host -e CGO_ENABLED=0 -e GOOS=linux -e GOARCH=amd64 -e GOGC="" -e GOPROXY=<https://proxy.golang.org> -e XDG_CACHE_HOME=/go/cache -v trident_build:/go/ -v ${PWD}:"/go/src/github.com/netapp/trident" -w /go/src/github.com/netapp/trident golang:1.17
