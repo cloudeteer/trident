@@ -12,13 +12,13 @@ COPY . .
 
 RUN ls
 
-RUN go build -ldflags "-s -w" -o trident_orchestrator
+# RUN go build -ldflags "-s -w" -o trident_orchestrator
 
-RUN go build -ldflags "-s -w" -o tridentctl
+# RUN go build -ldflags "-s -w" -o tridentctl
 
 RUN go build .
 
-RUN chwrap/make-tarball.sh /chwrap chwrap.tar
+# RUN chwrap/make-tarball.sh /chwrap chwrap.tar
 
 
 FROM alpine:3.12
