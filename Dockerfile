@@ -3,12 +3,16 @@ FROM golang:1.17 AS builder
 ENV GO111MODULE=on \
       CGO_ENABLED=0 \
       GOOS=${TARGETOS} \
-      GOARCH=${TARGETARCH}
-COPY . .
+      GOARCH=${TARGETARCH} \
+      # GOGC="" \
+      # GOPROXY=https://proxy.golang.org\
+      # XDG_CACHE_HOME=/go/cache
+
+      COPY . .
 
 RUN ls
 
-RUN go build -ldflags "-s -w" -o trident_orchestrator#
+RUN go build -ldflags "-s -w" -o trident_orchestrator
 
 RUN go build -ldflags "-s -w" -o tridentctl
 
