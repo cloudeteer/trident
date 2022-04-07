@@ -6,7 +6,13 @@ ENV GO111MODULE=on \
       GOARCH=${TARGETARCH} \
       GOGC="" \
       GOPROXY=https://proxy.golang.org\
-      XDG_CACHE_HOME=/go/cache
+      XDG_CACHE_HOME=/go/cache 
+WORKDIR /app
+
+COPY go.mod .
+COPY go.sum .
+
+RUN go mod download
 
 COPY . .
 
