@@ -29,7 +29,8 @@ RUN go build .
 
 # RUN ls app/
 
-RUN ls
+RUN ls -lah
+RUN pwd
 
 FROM alpine:3.12
 
@@ -43,7 +44,7 @@ ENV TRIDENT_SERVER 127.0.0.1:$PORT
 
 # COPY --from=builder /trident_orchestrator /
 # COPY --from=builder /tridentctl /bin/tridentctl
-COPY --from=builder trident /
+COPY --from=builder /dist/trident /
 # COPY --from=builder /chwrap.tar /
 
 ENTRYPOINT ["/bin/tridentctl"]
