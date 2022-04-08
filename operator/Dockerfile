@@ -1,13 +1,41 @@
-FROM gcr.io/distroless/static:a9b705d9ff06e9c60f6ceb2d2ef99dab084c17c0
+FROM golang:1.17 AS builder
 
-LABEL maintainers="The NetApp Trident Team" \
-      app="trident-operator.netapp.io" description="Trident Operator"
+ENV GO111MODULE=on \
+      CGO_ENABLED=0 \
+      GOOS=${TARGETOS} \
+      GOARCH=${TARGETARCH} \
+      GOGC="" \
+      GOPROXY=https://proxy.golang.org\
+      XDG_CACHE_HOME=/go/cache \
+      GOBIN=/dist
 
-ARG BIN=trident-operator
-ENV BIN $BIN
+WORKDIR /app
+
+COPY go.mod .
+COPY go.sum .
+
+RUN go mod download
+
+COPY . .
+
+
+RUN go build -ldflags "-s -w" -o trident_orchestrator
+
+
+RUN ls -lah
+RUN pwd
+
+FROM alpine:3.12
+
+ARG PORT=8000
+ENV PORT $PORT
+EXPOSE $PORT
 ARG K8S=""
 ENV K8S $K8S
+ENV TRIDENT_IP localhost
+ENV TRIDENT_SERVER 127.0.0.1:$PORT
 
-COPY $BIN /
+COPY --from=builder /app/trident /
 
-ENTRYPOINT ["/$BIN"]
+
+ENTRYPOINT ["/trident_orchestrator"]
