@@ -11,12 +11,12 @@ ENV GO111MODULE=on \
 
 WORKDIR /app
 
-COPY go.mod ../operator/
-COPY go.sum ../operator/
+COPY go.mod /app/operator/
+COPY go.sum /app/operator/
 
 RUN go mod download
 
-COPY . ../operator/
+COPY . /app/operator/
 
 
 RUN go build -ldflags "-s -w" -o trident_orchestrator
