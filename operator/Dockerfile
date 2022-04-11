@@ -14,8 +14,8 @@ WORKDIR /app
 RUN ls -lah
 RUN pwd
 
-COPY go.mod /app/operator/
-COPY go.sum /app/operator/
+COPY ../go.mod /app/operator/
+COPY ../go.sum /app/operator/
 
 RUN go mod download
 
