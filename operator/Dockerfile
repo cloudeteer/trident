@@ -9,12 +9,15 @@ ENV GO111MODULE=on \
       XDG_CACHE_HOME=/go/cache \
       GOBIN=/dist
 
-# WORKDIR /app
+WORKDIR /app
 
-# COPY go.mod /
-# COPY go.sum /
+COPY go.mod /
+COPY go.sum /
 
-# RUN go mod download
+RUN ls -lah
+RUN pwd
+
+RUN go mod download
 
 COPY . .
 
