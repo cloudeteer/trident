@@ -11,13 +11,13 @@ ENV GO111MODULE=on \
 
 WORKDIR /app
 
-COPY go.mod /
-COPY go.sum /
+# COPY go.mod /
+# COPY go.sum /
 
-RUN ls -lah
-RUN pwd
+# RUN ls -lah
+# RUN pwd
 
-RUN go mod download
+# RUN go mod download
 
 COPY . .
 
