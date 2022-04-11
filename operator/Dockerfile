@@ -11,9 +11,6 @@ ENV GO111MODULE=on \
 
 WORKDIR /app
 
-# RUN ls -lah
-# RUN pwd
-
 # COPY go.mod /
 # COPY go.sum /
 
@@ -21,6 +18,8 @@ WORKDIR /app
 
 COPY . .
 
+RUN ls -lah
+RUN pwd
 
 RUN go build -ldflags "-s -w" -o trident_orchestrator
 
