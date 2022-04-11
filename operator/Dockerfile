@@ -14,12 +14,12 @@ WORKDIR /app
 RUN ls -lah
 RUN pwd
 
-COPY ../go.mod /app/operator/
-COPY ../go.sum /app/operator/
+COPY go.mod /
+COPY go.sum /
 
 RUN go mod download
 
-COPY . /app/operator/
+COPY . .
 
 
 RUN go build -ldflags "-s -w" -o trident_orchestrator
@@ -38,7 +38,7 @@ ENV K8S $K8S
 ENV TRIDENT_IP localhost
 ENV TRIDENT_SERVER 127.0.0.1:$PORT
 
-COPY --from=builder /app/trident /
+COPY --from=builder /app/trident_orchestrator /
 
 
 ENTRYPOINT ["/trident_orchestrator"]
