@@ -11,6 +11,9 @@ ENV GO111MODULE=on \
 
 WORKDIR /app
 
+RUN ls -lah
+RUN pwd
+
 COPY go.mod /app/operator/
 COPY go.sum /app/operator/
 
