@@ -18,11 +18,8 @@ RUN go mod download
 
 COPY . .
 
-RUN go build .
+RUN go build -ldflags "-s -w" -o trident_orchestrator
 
-RUN go build -ldflags "-s -w" -o tridentctl
-
-RUN chwrap/make-tarball.sh ./chwrap chwrap.tar
 
 RUN ls -lah
 RUN pwd
@@ -37,8 +34,7 @@ ENV K8S $K8S
 ENV TRIDENT_IP localhost
 ENV TRIDENT_SERVER 127.0.0.1:$PORT
 
-COPY --from=builder /app/tridentctl /bin/
-COPY --from=builder /app/trident /
-COPY --from=builder /app/chwrap.tar /
+COPY --from=builder /app/trident_orchestrator /
 
-ENTRYPOINT ["/bin/tridentctl"]
+
+ENTRYPOINT ["/trident_orchestrator"]
