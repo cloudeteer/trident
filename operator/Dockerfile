@@ -9,7 +9,7 @@ ENV GO111MODULE=on \
       XDG_CACHE_HOME=/go/cache \
       GOBIN=/dist
 
-WORKDIR /app
+# WORKDIR /app
 
 # COPY go.mod /
 # COPY go.sum /
