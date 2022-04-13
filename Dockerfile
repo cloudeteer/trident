@@ -34,7 +34,6 @@ RUN pwd
 FROM ubuntu:latest AS builder2
 
 COPY . .
-RUN mkdir bin
 COPY --from=builder /bin/chwrap /bin/chwrap
 
 RUN chwrap/make-tarball.sh /bin/chwrap chwrap.tar
