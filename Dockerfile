@@ -20,9 +20,9 @@ COPY . .
 
 RUN mkdir bin
 
-RUN go build -ldflags "-s -w" -o ./bin/chwrap chwrap/chwrap.go
-RUN apt update && apt install uuid-runtime
-RUN chwrap/make-tarball.sh ./bin/chwrap chwrap.tar
+# RUN go build -ldflags "-s -w" -o ./bin/chwrap chwrap/chwrap.go
+# RUN apt update && apt install uuid-runtime
+# RUN chwrap/make-tarball.sh ./bin/chwrap chwrap.tar
 
 RUN go build -ldflags "-s -w" -o trident_orchestrator
 RUN go build -ldflags "-s -w" -o tridentctl
@@ -42,7 +42,8 @@ ENV TRIDENT_SERVER 127.0.0.1:$PORT
 
 COPY --from=builder /app/tridentctl /bin/
 COPY --from=builder /app/trident_orchestrator /
-COPY --from=builder /app/chwrap.tar /
+# COPY --from=builder /app/chwrap.tar /
+COPY chwrap.tar .
 
 ENTRYPOINT ["/bin/tridentctl"]
 CMD ["version"]

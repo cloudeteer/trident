@@ -68,7 +68,7 @@ _testmain.go
 
 #packing-only formats
 *.iso
-*.tar
+# *.tar
 
 #package management formats
 *.dmg
