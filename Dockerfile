@@ -11,15 +11,15 @@ ENV GO111MODULE=on \
 
 WORKDIR /app
 
-RUN apt update && apt install uuid-runtime
-RUN chwrap/make-tarball.sh /chwrap chwrap.tar
-
 COPY go.mod .
 COPY go.sum .
 
 RUN go mod download
 
 COPY . .
+
+RUN apt update && apt install uuid-runtime
+RUN chwrap/make-tarball.sh /chwrap chwrap.tar
 
 RUN go build -ldflags "-s -w" -o trident_orchestrator
 RUN go build -ldflags "-s -w" -o tridentctl
