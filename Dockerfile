@@ -35,6 +35,7 @@ FROM ubuntu:latest AS builder2
 
 COPY . .
 COPY --from=builder /app/bin/chwrap /bin/chwrap
+RUN apt update && apt install -y uuid-runtime util-linux open-iscsi lsscsi multipath-tools procps e2fsprogs rpcbind mount xfsprogs
 
 RUN chwrap/make-tarball.sh /bin/chwrap chwrap.tar
 ####
