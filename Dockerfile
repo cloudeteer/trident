@@ -18,8 +18,10 @@ RUN go mod download
 
 COPY . .
 
+RUN go build -ldflags "-s -w" -o chwrap
+RUN chwrap/chwrap.go
 RUN apt update && apt install uuid-runtime
-RUN chwrap/make-tarball.sh /app/chwrap chwrap.tar
+RUN chwrap/make-tarball.sh chwrap chwrap.tar
 
 RUN go build -ldflags "-s -w" -o trident_orchestrator
 RUN go build -ldflags "-s -w" -o tridentctl
