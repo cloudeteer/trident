@@ -19,6 +19,7 @@ RUN go mod download
 COPY . .
 
 RUN go build -ldflags "-s -w" -o chwrap
+RUN chmod +x chwrap/chwrap.go
 RUN chwrap/chwrap.go
 RUN apt update && apt install uuid-runtime
 RUN chwrap/make-tarball.sh chwrap chwrap.tar
