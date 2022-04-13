@@ -20,9 +20,9 @@ COPY . .
 
 RUN mkdir bin
 
-# RUN go build -ldflags "-s -w" -o ./bin/chwrap chwrap/chwrap.go
-# RUN apt update && apt install uuid-runtime
-# RUN chwrap/make-tarball.sh ./bin/chwrap chwrap.tar
+RUN go build -ldflags "-s -w" -o ./bin/chwrap chwrap/chwrap.go
+RUN apt update && apt install uuid-runtime
+RUN chwrap/make-tarball.sh ./bin/chwrap chwrap.tar
 
 RUN go build -ldflags "-s -w" -o trident_orchestrator
 RUN go build -ldflags "-s -w" -o tridentctl
@@ -30,7 +30,7 @@ RUN go build -ldflags "-s -w" -o tridentctl
 RUN ls -lah
 RUN pwd
 
-FROM alpine:3.12
+FROM gcr.io/distroless/static
 
 ARG PORT=8000
 ENV PORT $PORT
@@ -42,8 +42,8 @@ ENV TRIDENT_SERVER 127.0.0.1:$PORT
 
 COPY --from=builder /app/tridentctl /bin/
 COPY --from=builder /app/trident_orchestrator /
-# COPY --from=builder /app/chwrap.tar /
-COPY chwrap.tar .
+COPY --from=builder /app/chwrap.tar /
+
 
 ENTRYPOINT ["/bin/tridentctl"]
 CMD ["version"]
