@@ -2,7 +2,7 @@
 
 [ -n "$1" ] && [ -n "$2" ] || exit 1
 
-PREFIX=/tmp/$(uuidgen)
+PREFIX=/tmp/test
 mkdir -p $PREFIX/netapp
 cp "$1" $PREFIX/netapp/chwrap
 for BIN in apt blkid blockdev cat dd df dnf docker free iscsiadm ls lsblk lsscsi mkdir mkfs.ext3 mkfs.ext4 \
