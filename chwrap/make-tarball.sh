@@ -2,9 +2,9 @@
 
 [ -n "$1" ] && [ -n "$2" ] || exit 1
 
-PREFIX=/tmp/test
+PREFIX=/tmp/$(uuidgen)
 mkdir -p $PREFIX/netapp
-cp -r "$1" $PREFIX/netapp/chwrap
+cp "$1" $PREFIX/netapp/chwrap
 for BIN in apt blkid blockdev cat dd df dnf docker free iscsiadm ls lsblk lsscsi mkdir mkfs.ext3 mkfs.ext4 \
 mkfs.xfs mount mount.nfs mount.nfs4 mpathconf multipath multipathd pgrep resize2fs rmdir rpcinfo stat systemctl umount \
 xfs_growfs yum ; do
